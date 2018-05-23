@@ -11,7 +11,10 @@ public class CameraFollow : MonoBehaviour {
     private Vector3[] frames = new Vector3[2];
     private Camera cam;
     private float camVertExtent;
-    float camHorzExtent;
+    private float camHorzExtent;
+    
+
+
 
 
     public GameObject background;
@@ -22,7 +25,7 @@ public class CameraFollow : MonoBehaviour {
         player = GameObject.Find("Mullet").GetComponent<SpriteRenderer>();
         playerObj = GameObject.Find("Mullet");
         point = playerObj.transform;
-        vel = playerObj.GetComponent<Rigidbody2D>().velocity;
+        vel = new Vector3();
         frames[0] = playerObj.transform.position;
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         backgroundSpriteRend = background.GetComponent<SpriteRenderer>();
@@ -31,7 +34,7 @@ public class CameraFollow : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 
         float leftBound = backgroundSpriteRend.bounds.min.x + camHorzExtent + 1.0f;
         float rightBound = backgroundSpriteRend.bounds.max.x - camHorzExtent - 1.0f;
@@ -42,7 +45,7 @@ public class CameraFollow : MonoBehaviour {
         {
 
             checkBounds(leftBound, rightBound, topBound, bottomBound);
-           
+
         }
         else
         {
@@ -60,10 +63,11 @@ public class CameraFollow : MonoBehaviour {
             }
             transform.position = Vector3.SmoothDamp(transform.position, new Vector3(playerObj.transform.position.x, playerObj.transform.position.y, gameObject.transform.position.z), ref vel, 1f * Time.deltaTime, 1000.0f);
 
-            
+
 
             frames[0] = playerObj.transform.position;
         }
+
     }
 
     public void checkBounds(float leftBound, float rightBound, float topBound, float bottomBound)

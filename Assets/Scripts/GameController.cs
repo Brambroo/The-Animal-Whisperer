@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+    }
+
+    // Use this for initialization
+    void Start () {
         
     }
 	
